@@ -12,7 +12,7 @@ Software end users are no different than patrons in a restaurant. As developers,
 
 Waiter.js - A complete, light-weight paging solution that allows you to serve data to your users in courses (or pages, as it were). The API is extremely easy to use. To get started, just give Waiter.js your order! 
 
-  + var requestedPage = Waiter.takeDataOrder(myOrder, recordsPerPage).takePageOrder(pageNumber);⋅
+  + var requestedPage = Waiter.takeDataOrder(myOrder, recordsPerPage).serveSelectedPage(pageNumber);⋅
 
 When you're ready for the next page, just ask for it! 
 
