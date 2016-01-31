@@ -70,24 +70,31 @@ var Waiter = (function () {
             return this;
         },
         takePageOrder: function (page_number, criteria, direction) {
-            this.currentPageNumber = Number(page_number);
-            this.currentPage = this.pages[Number(this.currentPageNumber) - 1];
-            var sortedPage = [];
-            if (criteria !== null && criteria !== undefined && direction !== null && direction !== undefined) {
-                this.criteria = criteria;
-                this.direction = direction;
-                sortedPage = sortPage(this.currentPage, this.criteria, this.direction);
-                return sortedPage;
+            if (!isNaN(Number(page_number))) {
+                this.currentPageNumber = Number(page_number);
+                this.currentPage = this.pages[Number(this.currentPageNumber) - 1];
+                var sortedPage = [];
+                if (criteria !== null && criteria !== undefined && direction !== null && direction !== undefined) {
+                    this.criteria = criteria.toString();
+                    if (Number(direction) !== 0 || Number(direction) !== 1) {
+                        this.direction = 0;
+                    } else {
+                        this.direction = Number(direction);
+                    }
+                    sortedPage = sortPage(this.currentPage, this.criteria, this.direction);
+                    return sortedPage;
+                } else {
+                    return this.currentPage;
+                }
             } else {
                 return this.currentPage;
             }
         },
         serveSelectedPage: function (page_number) {
-            if (Number(page_number) > 0 && Number(page_number) <= this.numberOfPages) {
+            if (!isNaN(Number(page_number))) {
                 this.currentPageNumber = Number(page_number);
                 this.currentPage = this.pages[Number(this.currentPageNumber) - 1];
             }
-
             return this.currentPage;
         },
         serveNextPage: function () {
