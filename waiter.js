@@ -45,49 +45,55 @@ var Waiter = (function () {
         takeDataOrder: function (data, records_per_page) {
             var data_row = undefined, count = 0, next_page_start = 0, next_page_end = undefined;
             
-            if (data !== null || data !== undefined || data.length > 0) {
-               this.data = data; 
-            } else {
-                if (records_per_page !== null || records_per_page !== undefined || !isNaN(records_per_page)) {
+            if (data !== null && data !== undefined && data.length > 0) {
+                this.data = data;
+                if (records_per_page !== null && records_per_page !== undefined && !isNaN(Number(records_per_page)) && records_per_page > 0) {
                     this.recordsPerPage = Number(records_per_page);
                     next_page_end = this.recordsPerPage;
-                } 
-                this.numberOfPages = Math.max(Math.ceil(Number(this.data.length / this.recordsPerPage)));
-                
-                if (this.numberOfPages > 0) {
-                    this.pages = [];
+                    this.numberOfPages = Math.max(Math.ceil(Number(this.data.length / this.recordsPerPage)));
+                    if (this.numberOfPages > 0) {
+                        this.pages = [];
+                        while (count < this.numberOfPages) {
+                            this.pages.push(this.data.slice(next_page_start, next_page_end));
+                            count++;
+                            next_page_start += Number(this.recordsPerPage);
+                            next_page_end += Number(this.recordsPerPage);
+                        }
+                        this.currentPage = this.pages[0];
+                    } else {
+                        console.error("Waiter.js is unable to produce pages from your data.");
+                    }
+                } else {
+                    console.error("Waiter.js is unable to produce pages from your data.");
                 }
-                
-                while (count < this.numberOfPages) {
-                    this.pages.push(this.data.slice(next_page_start, next_page_end));
-                    count++;
-                    next_page_start += Number(this.recordsPerPage);
-                    next_page_end += Number(this.recordsPerPage);
-                }
-                
-                this.currentPage = this.pages[0];
+            } else {
+                console.error("Waiter.js is unable to produce pages from your data.");
             }
             return this;
         },
         takePageOrder: function (page_number, criteria, direction) {
-            if (!isNaN(Number(page_number))) {
-                this.currentPageNumber = Number(page_number);
-                this.currentPage = this.pages[Number(this.currentPageNumber) - 1];
-                var sortedPage = [];
-                if (criteria !== null && criteria !== undefined && direction !== null && direction !== undefined) {
-                    this.criteria = criteria.toString();
-                    if (Number(direction) !== 0 || Number(direction) !== 1) {
-                        this.direction = 0;
+            if (this.pages.length > 0) {
+                if (!isNaN(Number(page_number))) {
+                    this.currentPageNumber = Number(page_number);
+                    this.currentPage = this.pages[Number(this.currentPageNumber) - 1];
+                    var sortedPage = [];
+                    if (criteria.trim() !== null && criteria.trim() !== undefined && criteria.trim().length > 0 && direction !== null && direction !== undefined && !isNaN(Number(direction))) {
+                        this.criteria = criteria;
+                        if (Number(direction) === 0 || Number(direction) === 1) {
+                            this.direction = Number(direction);
+                        } else {
+                            this.direction = 0;
+                        }   
+                        sortedPage = sortPage(this.currentPage, this.criteria, this.direction);
+                        return sortedPage;
                     } else {
-                        this.direction = Number(direction);
+                        console.error("Waiter.js is unable to return a page. The criteria and/or direction you provided is invalid.");
                     }
-                    sortedPage = sortPage(this.currentPage, this.criteria, this.direction);
-                    return sortedPage;
                 } else {
-                    return this.currentPage;
+                    console.error("Waiter.js is unable to return a page. The page number your provided is invalid.");
                 }
             } else {
-                return this.currentPage;
+                console.error("Waiter.js was unable to produce pages from your data. There are no pages to return.");
             }
         },
         serveSelectedPage: function (page_number) {
@@ -130,4 +136,3 @@ var Waiter = (function () {
         }
     }
 })();
-
