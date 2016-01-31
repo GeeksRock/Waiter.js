@@ -43,13 +43,14 @@ var Waiter = (function () {
 
     return {
         takeDataOrder: function (data, records_per_page) {
-            var data_row = undefined, count = 0, next_page_start = 0, next_page_end = undefined;//Number(records_per_page)
+            var data_row = undefined, count = 0, next_page_start = 0, next_page_end = undefined;
             
             if (data !== null || data !== undefined || data.length > 0) {
                this.data = data; 
             } else {
                 if (records_per_page !== null || records_per_page !== undefined || !isNaN(records_per_page)) {
                     this.recordsPerPage = Number(records_per_page);
+                    next_page_end = this.recordsPerPage;
                 } 
                 this.numberOfPages = Math.max(Math.ceil(Number(this.data.length / this.recordsPerPage)));
                 
