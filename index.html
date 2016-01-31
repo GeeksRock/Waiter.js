@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Waiter.js by GeeksRock</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/GeeksRock/Waiter.js">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/GeeksRock/Waiter.js/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/GeeksRock/Waiter.js/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Waiter.js</h1>
+          <p>A complete, light-weight paging solution. Waiter.js serves up your data in courses (or pages, as it were). </p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/GeeksRock">GeeksRock</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a id="waiterjs" class="anchor" href="#waiterjs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Waiter.js</h1>
+
+<p>Any decent restaurant serves your meals to you in courses. If your waiter was to bring your main course (spaghetti, perhaps?) when he brought your salad, you might become overwhelmed. Your spaghetti would most likely be cold by the time you finished your first course, a house salad with a light vinegrette dressing.</p>
+
+<p>Software end users are no different than patrons in a restaurant. As developers, we should always strive to provide great customer service. If you present users with an excessive amount of data, they too might become overwhelmed. And that could be bad for business. That's where Waiter.js comes in.</p>
+
+<p>See the Pen <a href="http://codepen.io/GeeksRock/pen/jWKYbE/">Waiter.js Demo</a> by Geeks Rock (<a href="http://codepen.io/GeeksRock">@GeeksRock</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+
+
+
+<p>Waiter.js - A complete, light-weight paging solution that allows you to serve data to your users in courses (or pages, as it were). The API is extremely easy to use. To get started, just give Waiter.js your order! </p>
+
+<ul>
+<li><code>var requestedPage = Waiter.takeDataOrder(myOrder, recordsPerPage).takePageOrder(pageNumber);⋅</code></li>
+</ul>
+
+<p>When you're ready for the next page, just ask for it! </p>
+
+<ul>
+<li><code>var nextPage = Waiter.serveNextPage();</code></li>
+</ul>
+
+<p>Prefer your pages "shaken, not stirred"...or <strong>sorted</strong>? That's not a problem! Just let Waiter.js know. </p>
+
+<ul>
+<li><code>var sortedPageData = Waiter.takePageOrder(pageNumber, sortField, sortDirection);</code></li>
+</ul>
+
+<p>See? Just as you would in any restaurant (well, maybe not at a buffet) you simply present Waiter.js with your order, and your page(s) are served up!</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
