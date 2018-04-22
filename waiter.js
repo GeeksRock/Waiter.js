@@ -6,9 +6,10 @@ var Waiter = (function () {
     var direction = 0;
     var pages = undefined;
     var currentPage = undefined;
-    var currentPageNumber = undefined;
+    var currentPageNumber = 1;
     var recordsPerPage = 0;
     var numberOfPages = 0;
+    var numberOfRecords = 0;
 
     function sortPage (page, criteria, direction) {
         if (Number(direction) === 0) {
@@ -47,6 +48,8 @@ var Waiter = (function () {
             
             if (data !== null && data !== undefined && data.length > 0) {
                 this.data = data;
+                this.numberOfRecords = this.data.length;
+                
                 if (records_per_page !== null && records_per_page !== undefined && !isNaN(Number(records_per_page)) && records_per_page > 0) {
                     this.recordsPerPage = Number(records_per_page);
                     next_page_end = this.recordsPerPage;
@@ -101,23 +104,17 @@ var Waiter = (function () {
                 this.currentPageNumber = Number(page_number);
                 this.currentPage = this.pages[Number(this.currentPageNumber) - 1];
             }
-            return this.currentPage;
+            return this.servePageData();
         },
         serveNextPage: function () {
             if (Number(this.currentPageNumber) + 1 <= Number(this.numberOfPages)) {
-                this.currentPageNumber = Number(this.currentPageNumber) + 1;
-                this.currentPage = this.pages[Number(this.currentPageNumber) - 1];
+                return this.serveSelectedPage(Number(this.currentPageNumber) + 1);
             }
-
-            return this.currentPage;
         },
         servePrevPage: function () {
             if (Number(this.currentPageNumber) - 1 >= 1) {
-                this.currentPageNumber = Number(this.currentPageNumber) - 1;
-                this.currentPage = this.pages[Number(this.currentPageNumber) - 1];
+                return this.serveSelectedPage(Number(this.currentPageNumber) - 1);
             }
-
-            return this.currentPage;
         },
         servePageData: function () {
             return {
@@ -128,7 +125,8 @@ var Waiter = (function () {
                 current_page: this.currentPage,
                 current_page_number: this.currentPageNumber,
                 records_per_page: this.recordsPerPage,
-                number_of_pages: this.numberOfPages
+                number_of_pages: this.numberOfPages,
+                number_of_records: this.numberOfRecords
             };
         },
         servePages: function () {
